@@ -1,8 +1,6 @@
 FROM golang:1.12
 ENV GO111MODULE=on
 
-LABEL maintainer="otiai10 <otiai10@gmail.com>"
-
 RUN apt-get -qq update \
   && apt-get install -y \
     libleptonica-dev \
@@ -13,8 +11,8 @@ RUN apt-get -qq update \
 RUN apt-get install -y \
   tesseract-ocr-jpn
 
-ADD . $GOPATH/src/github.com/otiai10/ocrserver
-WORKDIR $GOPATH/src/github.com/otiai10/ocrserver
+ADD . $GOPATH/ocrserver
+WORKDIR $GOPATH/ocrserver
 RUN go get ./...
 RUN go test -v github.com/otiai10/gosseract
 

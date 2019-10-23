@@ -21,10 +21,10 @@ func main() {
 	r := marmoset.NewRouter()
 	// API
 	r.GET("/status", controllers.Status)
-	r.POST("/base64", controllers.Base64)
-	r.POST("/file", controllers.FileUpload)
+	// r.POST("/base64", controllers.Base64)
+	r.POST("/", controllers.FileUpload)
 	// Sample Page
-	r.GET("/", controllers.Index)
+	// r.GET("/", controllers.Index)
 	r.Static("/assets", "./app/assets")
 
 	logger = log.New(os.Stdout, fmt.Sprintf("[%s] ", "ocrserver"), 0)
