@@ -23,6 +23,27 @@ export const getTips = async (keys: Array<string>) => {
     })
     return output
   } catch (error) {
-    throw new ApplicationError(500, "invalid-location-id", "Unable to find location")
+    throw new ApplicationError(500, "sql-error ", "Unable to find tips")
   }
 };
+
+export const insertTipsKeys = async (keys: Array<string>) => {
+  const tip = "Make conscious purchases"
+  try {
+    keys
+    for (let index = 0; index < keys.length; index++) {
+      const key = keys[index];
+      if (! await IsItemExists(key)) {
+        await query(`INSERT INTO tips ("item_key", "item_tips") values($1, $2)`, [key, tip])
+      }
+    }
+  } catch (error) {
+    throw new ApplicationError(500, "sql-error ", "Unable to find tips")
+  }
+}
+
+export const IsItemExists = async (key: string) => {
+  const rs = await query(`SELECT count(1) FROM tips where item_key = $1`, [key])
+  return !!(rs.rows[0].count > 0)
+}
+
