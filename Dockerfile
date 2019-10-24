@@ -1,20 +1,13 @@
-FROM golang:1.12
-ENV GO111MODULE=on
+FROM node:latest as builder
 
-RUN apt-get -qq update \
-  && apt-get install -y \
-    libleptonica-dev \
-    libtesseract-dev \
-    tesseract-ocr
+ARG APP_HOME=/node-app
+ARG CGO_ENABLED=0
+ARG GOOS=linux
+ARG GOARCH=amd64
 
-# Load languages
-RUN apt-get install -y \
-  tesseract-ocr-jpn
+RUN apt-get update && apt-get install -y postgresql-client
 
-ADD . $GOPATH/ocrserver
-WORKDIR $GOPATH/ocrserver
-RUN go get ./...
-RUN go test -v github.com/otiai10/gosseract
+WORKDIR $APP_HOME
+COPY . $APP_HOME
 
-ENV PORT=8080
-CMD $GOPATH/bin/ocrserver
+RUN chmod +x wait-for-db.sh

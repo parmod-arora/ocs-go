@@ -1,0 +1,160 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0"
+  },
+  "host": "localhost:4000",
+  "basePath": "/api/v1",
+  "schemes": ["http"],
+  "produces": ["application/json"],
+  "paths": {
+    "/search": {
+      "get": {
+        "tags": ["Locations"],
+        "summary": "Search by places using opencagedata service",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        },
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Specifies the query string",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/locations": {
+      "get": {
+        "tags": ["Locations"],
+        "summary": "Fetch Locations from database",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        }
+      },
+      "post": {
+        "tags": ["Locations"],
+        "summary": "Create Location",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Specifies the query string",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateLocation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        }
+      }
+    },
+    "/locations/{locationId}": {
+      "patch": {
+        "tags": ["Locations"],
+        "summary": "Update Location",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "location address",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateLocation"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "location Id to update",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        }
+      },
+      "delete": {
+        "tags": ["Locations"],
+        "summary": "Delete Location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "location Id to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Location": {
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lng": {
+          "type": "number"
+        }
+      }
+    },
+    "CreateLocation": {
+      "properties": {
+        "address": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

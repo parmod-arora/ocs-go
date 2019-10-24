@@ -1,7 +1,17 @@
-web:
-  build: .
-  dockerfile: Dockerfile
-  ports:
-    - "8080:8080"
-  environment:
-    PORT: 8080
+version: '3.5'
+
+services:
+  db:
+    container_name: geo-db
+    ports:
+      - "5432:5432"
+    image: postgres:9.5-alpine
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: locations
