@@ -8,7 +8,8 @@ export default [
     method: "post",
     handler: [
       async (req : Request, res: Response) => {
-        const result = await getTips();
+        const keys = req.body.key
+        const result = await getTips(keys);
         res.status(200).send(result);
       }
     ]

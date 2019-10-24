@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   db:
-    container_name: geo-db
+    container_name: hackthon-db
     ports:
       - "5432:5432"
     image: postgres:9.5-alpine
@@ -14,4 +14,4 @@ services:
       retries: 3
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: locations
+      POSTGRES_DB: hackthon
