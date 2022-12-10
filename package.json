@@ -29,7 +29,7 @@
     "db-migrate": "^0.11.6",
     "db-migrate-pg": "^1.0.0",
     "dotenv": "^8.1.0",
-    "express": "^5.0.0-alpha.7",
+    "express": "^5.0.0-beta.1",
     "pg": "^7.12.1",
     "pm2": "^3.5.1",
     "request": "^2.88.0",
